@@ -91,7 +91,7 @@ window.onload = async () => {
     document.getElementById('btnLogout').style.display = isAuthenticated ? "block" : "none" ;
   }
 
-const serverUri = "https://web2projekt1ticketsapp.onrender.com";
+const serverUri = "https://web2projekt1tickets.onrender.com";
 
 const getTicketInfo = async uuid => {
     try {    
