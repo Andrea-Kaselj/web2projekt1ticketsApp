@@ -1,7 +1,6 @@
 
 let auth0 = null;
 const fetchAuthConfig = () => fetch("/auth_config.json");
-const fetchEndpointConfig = async () => fetch("/endpoint");
 const configureClient = async () => {
     const response = await fetchAuthConfig();
     const config = await response.json();    
@@ -92,9 +91,7 @@ window.onload = async () => {
     document.getElementById('btnLogout').style.display = isAuthenticated ? "block" : "none" ;
   }
 
-const uriResponse = fetchEndpointConfig();
-const serverUri = uriResponse.body;
-console.log(serverUri)
+const serverUri = "https://web2projekt1ticketsapp.onrender.com";
 
 const getTicketInfo = async uuid => {
     try {    

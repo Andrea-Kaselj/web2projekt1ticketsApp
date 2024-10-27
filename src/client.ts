@@ -25,10 +25,6 @@ app.get("/auth_config.json", (req, res) => {
   });
 });
 
-app.get("/endpoint", (req, res) => {
-  res.send(externalUrl + ":"+ port)
-});
-
 app.get('/ticket/:uuid', function (req, res) {    
   res.render('index');
 });
