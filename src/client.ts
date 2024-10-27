@@ -5,6 +5,9 @@ import https from 'https';
 import dotenv from 'dotenv';
 
 dotenv.config()
+const externalUrl = process.env.RENDER_EXTERNAL_URL; 
+const port = externalUrl && process.env.PORT ? parseInt(process.env.PORT) : 4092;
+
 const app = express();
 app.set("views", path.join(__dirname, "views"));
 app.set('view engine', 'pug');
@@ -22,16 +25,25 @@ app.get("/auth_config.json", (req, res) => {
   });
 });
 
+app.get("/endpoint", (req, res) => {
+  res.send(externalUrl + ":"+ port)
+});
+
 app.get('/ticket/:uuid', function (req, res) {    
   res.render('index');
 });
 
-const port = 4092;
-https.createServer({
-  key: fs.readFileSync('server.key'),
-  cert: fs.readFileSync('server.cert')
-}, app)
-.listen(port, function () {
-  console.log(`SPA running at https://localhost:${port}/`);
-});
 
+if (externalUrl) { const hostname = '0.0.0.0'; //ne 127.0.0.1 
+  app.listen(port, hostname, () => { 
+    console.log(`Server locally running at http://${hostname}:${port}/ and from outside on ${externalUrl}`); 
+  }); 
+} else {
+  https.createServer({
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert')
+  }, app)
+  .listen(port, function () {
+    console.log(`App running at https://localhost:${port}/`);
+  });
+}
