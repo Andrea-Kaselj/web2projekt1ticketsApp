@@ -1,0 +1,40 @@
+{
+  "name": "web2projekt1",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "npm run clean && tsc && npm run copy-views && npm run copy-public",
+    "clean": "shx rm -rf dist",
+    "copy-views": "shx cp -r src/views/ dist",
+    "copy-public": "shx cp -r src/public/ dist/public",
+    "start": "concurrently --kill-others \"npm:client\" \"npm:web-service\"",
+    "client": "node dist/client.js",
+    "web-service": "node dist/webapi.js"
+  },
+  "author": "Andrea Kaselj",
+  "license": "ISC",
+  "dependencies": {
+    "axios": "^1.7.7",
+    "cors": "^2.8.5",
+    "dotenv": "^16.4.5",
+    "express": "^4.21.1",
+    "express-oauth2-jwt-bearer": "^1.6.0",
+    "express-openid-connect": "^2.17.1",
+    "fs": "^0.0.1-security",
+    "https": "^1.0.0",
+    "pg": "^8.13.1",
+    "pug": "^3.0.3",
+    "qr-image": "^3.2.0"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17",
+    "@types/express": "^5.0.0",
+    "@types/node": "^22.8.0",
+    "@types/pg": "^8.11.10",
+    "@types/qr-image": "^3.2.9",
+    "shx": "^0.3.4",
+    "typescript": "^5.6.3"
+  }
+}
