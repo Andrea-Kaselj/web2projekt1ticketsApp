@@ -9,7 +9,7 @@
     "clean": "shx rm -rf dist",
     "copy-views": "shx cp -r src/views/ dist",
     "copy-public": "shx cp -r src/public/ dist/public",
-    "start": "concurrently --kill-others \"npm:web-service\"",
+    "start": " npm run web-service",
     "client": "node dist/client.js",
     "web-service": "node dist/webapi.js"
   },
