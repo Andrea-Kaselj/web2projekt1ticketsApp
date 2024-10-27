@@ -106,15 +106,22 @@ app.get('/userInfo', checkJwt, async function (req, res) {
 // });
 
 
+const externalUrl = process.env.RENDER_EXTERNAL_URL; 
+const port = externalUrl && process.env.PORT ? parseInt(process.env.PORT) : 4091;
 
-const port = 4091;
-https.createServer({
-  key: fs.readFileSync('server.key'),
-  cert: fs.readFileSync('server.cert')
-}, app)
-.listen(port, function () {
-  console.log(`Web API running at https://localhost:${port}/`);
-});
+if (externalUrl) { const hostname = '0.0.0.0'; //ne 127.0.0.1 
+  app.listen(port, hostname, () => { 
+    console.log(`Server locally running at http://${hostname}:${port}/ and from outside on ${externalUrl}`); 
+  }); 
+} else {
+  https.createServer({
+    key: fs.readFileSync('server.key'),
+    cert: fs.readFileSync('server.cert')
+  }, app)
+  .listen(port, function () {
+    console.log(`App running at https://localhost:${port}/`);
+  });
+}
 
 import { Pool } from 'pg' 
 import dotenv from 'dotenv' 
