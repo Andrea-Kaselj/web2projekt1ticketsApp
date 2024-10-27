@@ -157,7 +157,6 @@ const getTicketInfo = async uuid => {
     try {    
       // Make the call to the API, setting the token
       // in the Authorization header
-      let serverUri = await fetchEndpointConfig().body;
       const response = await fetch(`${serverUri}/ticketCount`);
   
       // Fetch the JSON result
